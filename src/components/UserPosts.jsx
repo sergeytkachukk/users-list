@@ -6,7 +6,6 @@ const UserPosts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Extract userId from the URL params
   const { userId } = useParams();
 
   const fetchUserPosts = () => {
@@ -29,7 +28,6 @@ const UserPosts = () => {
       });
   };
 
-  // Fetch user posts when the component mounts
   useEffect(() => {
     fetchUserPosts();
   }, [userId]); // Update posts when userId changes
@@ -45,7 +43,7 @@ const UserPosts = () => {
   return (
     <div>
       <h2>User Posts</h2>
-      <Link to={`/`}>Back to Users</Link>
+      <Link to={`/user/${userId}`}>Back to User</Link>
       <ul>
         {posts.map(post => (
           <li key={post.id}>

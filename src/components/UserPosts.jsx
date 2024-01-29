@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import ErrorComponent from "./ErrorComponent";
+import LoadingComponent from "./LoadingComponent";
 import styled from "styled-components";
 
 const UsersPostWrapper = styled.div`
@@ -57,14 +59,14 @@ const UserPosts = () => {
 
   useEffect(() => {
     fetchUserPosts();
-  }, [userId]); // Update posts when userId changes
+  }, [userId]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingComponent />;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <ErrorComponent error={error} />
   }
 
   return (

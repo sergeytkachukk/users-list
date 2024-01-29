@@ -1,5 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import styled from "styled-components";
+
+const UsersAlbumsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const StyledLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  text-decoration: none;
+  margin: 10px;
+  color: black;
+  width: max-content;
+`;
+
+const AlbumsInformation = styled.li`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 20px;
+  margin-right: 40px;
+`;
 
 const UserAlbums = () => {
   const [albums, setAlbums] = useState([]);
@@ -10,17 +38,17 @@ const UserAlbums = () => {
 
   const fetchUserAlbums = () => {
     fetch(`https://jsonplaceholder.typicode.com/albums?userId=${userId}`)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setAlbums(data);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         setError(error.message);
         setLoading(false);
       });
@@ -39,17 +67,21 @@ const UserAlbums = () => {
   }
 
   return (
-    <div>
+    <UsersAlbumsWrapper>
       <h2>User Albums</h2>
-      <Link to={`/user/${userId}`}>Back to User</Link>
+      <StyledLink to={`/user/${userId}`}>Back to User</StyledLink>
       <ul>
-        {albums.map(album => (
-          <li key={album.id}>
-            <h3>{album.title}</h3>
-          </li>
+        {albums.map((album) => (
+          <AlbumsInformation key={album.id}>
+            <h3>
+              {album.title
+                ? album.title.charAt(0).toUpperCase() + album.title.slice(1)
+                : ""}
+            </h3>
+          </AlbumsInformation>
         ))}
       </ul>
-    </div>
+    </UsersAlbumsWrapper>
   );
 };
 

@@ -1,5 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const UsersListWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const InputStyling = styled.input`
+  border: 1px solid black;
+  padding: 6px;
+  border-radius: 10px;
+`;
+const StyledSelect = styled.select`
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  margin-left: 5px;
+`;
+const UsersList = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-conten: space-beetwen;
+`;
+const StyledLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
+  margin: 5px;
+`;
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
@@ -48,33 +78,33 @@ const UserList = () => {
   }
 
   return (
-    <div>
+    <UsersListWrapper>
       <h2>User List</h2>
 
       <div>
-        <input
+        <InputStyling
           type="text"
           placeholder="Search by username"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <select
+        <StyledSelect
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
         >
           <option value="asc">Sort Ascending</option>
           <option value="desc">Sort Descending</option>
-        </select>
+        </StyledSelect>
       </div>
 
       <ul>
         {sortedUsers.map((user) => (
-          <li key={user.id}>
-            <Link to={`/user/${user.id}`}>{user.username}</Link>
-          </li>
+          <UsersList key={user.id}>
+            <StyledLink to={`/user/${user.id}`}>{user.username}</StyledLink>
+          </UsersList>
         ))}
       </ul>
-    </div>
+    </UsersListWrapper>
   );
 };
 

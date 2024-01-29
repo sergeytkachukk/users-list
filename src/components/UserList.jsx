@@ -1,4 +1,3 @@
-// UserList.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
@@ -27,39 +26,51 @@ const UserList = () => {
       });
   };
 
-  // Fetch users from your API or data source
   useEffect(() => {
     fetchUserData();
   }, []);
 
-  // Filter users based on the search term
   const filteredUsers = users.filter((user) =>
     user.username.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Sort users based on the sortOrder
   const sortedUsers = [...filteredUsers].sort((a, b) => {
     const order = sortOrder === "asc" ? 1 : -1;
     return a.username.localeCompare(b.username) * order;
   });
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search by username"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-        <option value="asc">Sort Ascending</option>
-        <option value="desc">Sort Descending</option>
-      </select>
+      <h2>User List</h2>
+
+      <div>
+        <input
+          type="text"
+          placeholder="Search by username"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+        >
+          <option value="asc">Sort Ascending</option>
+          <option value="desc">Sort Descending</option>
+        </select>
+      </div>
 
       <ul>
         {sortedUsers.map((user) => (
           <li key={user.id}>
-            <Link to={`/user/${user.id}/posts`}>{user.username}</Link>
+            <Link to={`/user/${user.id}`}>{user.username}</Link>
           </li>
         ))}
       </ul>

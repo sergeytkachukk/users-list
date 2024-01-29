@@ -1,10 +1,15 @@
-import App from './App.jsx';
+import React from "react";
+import App from "./App.jsx";
+import ReactDOM from "react-dom/client";
 
-import ReactDOM from "react-dom";
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-ReactDOM.render(<App />, document.getElementById("root"));
-
-const devMode = process.env.NODE_ENV === 'development';
+const devMode = process.env.NODE_ENV === "development";
 if (devMode && module && module.hot) {
-    module.hot.accept();
+  module.hot.accept();
 }

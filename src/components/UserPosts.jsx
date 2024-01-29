@@ -66,7 +66,7 @@ const UserPosts = () => {
   }
 
   if (error) {
-    return <ErrorComponent error={error} />
+    return <ErrorComponent error={error} />;
   }
 
   return (

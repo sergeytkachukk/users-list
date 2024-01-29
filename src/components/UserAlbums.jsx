@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import ErrorComponent from "./ErrorComponent";
+import LoadingComponent from "./LoadingComponent";
 import styled from "styled-components";
 
 const UsersAlbumsWrapper = styled.div`
@@ -56,14 +58,14 @@ const UserAlbums = () => {
 
   useEffect(() => {
     fetchUserAlbums();
-  }, [userId]); // Update albums when userId changes
+  }, [userId]); 
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingComponent />;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <ErrorComponent error={error} />
   }
 
   return (

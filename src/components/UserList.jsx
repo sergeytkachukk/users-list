@@ -76,7 +76,7 @@ const UserList = () => {
   }
 
   if (error) {
-    return <ErrorComponent error={error} />
+    return <ErrorComponent error={error} />;
   }
 
   return (

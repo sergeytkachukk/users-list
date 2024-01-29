@@ -22,10 +22,14 @@ module.exports = {
         test: /\.s(a|c)ss$/,
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   resolve: {
-    extensions: [".*", ".js", ".jsx"],
+    extensions: [".*", ".js", "css", ".jsx"],
     alias: {
       "@components": path.resolve(__dirname, "src/components"),
       "@styles": path.resolve(__dirname, "src/styles"),

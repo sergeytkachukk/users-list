@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import ErrorComponent from "./ErrorComponent";
-import LoadingComponent from "./LoadingComponent";
+import { ErrorComponent } from "./ErrorComponent";
+import { LoadingComponent } from "./LoadingComponent";
 import styled from "styled-components";
 
 const UsersAlbumsWrapper = styled.div`
@@ -31,7 +31,7 @@ const AlbumsInformation = styled.li`
   margin-right: 40px;
 `;
 
-const UserAlbums = () => {
+export const UserAlbums = () => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -58,20 +58,22 @@ const UserAlbums = () => {
 
   useEffect(() => {
     fetchUserAlbums();
-  }, [userId]); 
+  }, [userId]);
 
   if (loading) {
     return <LoadingComponent />;
   }
 
   if (error) {
-    return <ErrorComponent error={error} />
+    return <ErrorComponent error={error} />;
   }
 
   return (
     <UsersAlbumsWrapper>
       <h2>User Albums</h2>
+
       <StyledLink to={`/user/${userId}`}>Back to User</StyledLink>
+
       <ul>
         {albums.map((album) => (
           <AlbumsInformation key={album.id}>
@@ -86,5 +88,3 @@ const UserAlbums = () => {
     </UsersAlbumsWrapper>
   );
 };
-
-export default UserAlbums;

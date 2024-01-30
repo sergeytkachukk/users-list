@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import ErrorComponent from "./ErrorComponent";
-import LoadingComponent from "./LoadingComponent";
+import { ErrorComponent } from "./ErrorComponent";
+import { LoadingComponent } from "./LoadingComponent";
 import styled from "styled-components";
 
 const UserInfoWrapper = styled.div`
@@ -22,6 +22,10 @@ const UserInformation = styled.div`
   flex-direction: column;
   padding: 10px;
 `;
+const UserInformationBlock = styled.div`
+  margin-bottom: 5px;
+  font-style: italic;
+`;
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -33,7 +37,8 @@ const StyledLink = styled(Link)`
   margin: 10px;
   color: black;
 `;
-const UserInfo = () => {
+
+export const UserInfo = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -67,25 +72,31 @@ const UserInfo = () => {
   }
 
   if (error) {
-    return <ErrorComponent error={error} />
+    return <ErrorComponent error={error} />;
   }
 
   return (
     <UserInfoWrapper>
       <h2>User Information</h2>
+
       <MainInformation>
         <UserInformation>
-          <div>
+          <UserInformationBlock>
             <strong>Id:</strong> {user.id}
-          </div>
-          <strong>Name:</strong> {user.name}
-          <div>
+          </UserInformationBlock>
+
+          <UserInformationBlock>
+            <strong>Name:</strong> {user.name}
+          </UserInformationBlock>
+
+          <UserInformationBlock>
             <strong>Email:</strong> {user.email}
-          </div>
-          <div>
+          </UserInformationBlock>
+
+          <address>
             <strong>Address:</strong> {user.address.street}, {user.address.city}
             , {user.address.zipcode}
-          </div>
+          </address>
         </UserInformation>
 
         <div>
@@ -99,5 +110,3 @@ const UserInfo = () => {
     </UserInfoWrapper>
   );
 };
-
-export default UserInfo;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import ErrorComponent from "./ErrorComponent";
-import LoadingComponent from "./LoadingComponent";
+import { ErrorComponent } from "./ErrorComponent";
+import { LoadingComponent } from "./LoadingComponent";
 import styled from "styled-components";
 
 const UsersListWrapper = styled.div`
@@ -20,10 +20,14 @@ const StyledSelect = styled.select`
   border-radius: 10px;
   margin-left: 5px;
 `;
-const UsersList = styled.li`
+const UsersListUl = styled.ul`
   display: flex;
   flex-direction: column;
-  justify-conten: space-beetwen;
+  align-items: start;
+`;
+const UsersListLi = styled.li`
+  display: flex;
+  text-decoration: none;
 `;
 const StyledLink = styled(Link)`
   display: flex;
@@ -33,7 +37,7 @@ const StyledLink = styled(Link)`
   margin: 5px;
 `;
 
-const UserList = () => {
+export const UserList = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
@@ -71,6 +75,14 @@ const UserList = () => {
     return a.username.localeCompare(b.username) * order;
   });
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSortClick = () => {
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
   if (loading) {
     return <LoadingComponent />;
   }
@@ -88,26 +100,22 @@ const UserList = () => {
           type="text"
           placeholder="Search by username"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleSearchChange}
         />
-        <StyledSelect
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-        >
+
+        <StyledSelect value={sortOrder} onChange={handleSortClick}>
           <option value="asc">Sort Ascending</option>
           <option value="desc">Sort Descending</option>
         </StyledSelect>
       </div>
 
-      <ul>
+      <UsersListUl>
         {sortedUsers.map((user) => (
-          <UsersList key={user.id}>
+          <UsersListLi key={user.id}>
             <StyledLink to={`/user/${user.id}`}>{user.username}</StyledLink>
-          </UsersList>
+          </UsersListLi>
         ))}
-      </ul>
+      </UsersListUl>
     </UsersListWrapper>
   );
 };
-
-export default UserList;

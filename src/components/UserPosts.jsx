@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import ErrorComponent from "./ErrorComponent";
-import LoadingComponent from "./LoadingComponent";
+import { ErrorComponent } from "./ErrorComponent";
+import { LoadingComponent } from "./LoadingComponent";
 import styled from "styled-components";
 
 const UsersPostWrapper = styled.div`
@@ -30,7 +30,7 @@ const PostInformation = styled.li`
   margin-right: 40px;
 `;
 
-const UserPosts = () => {
+export const UserPosts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -72,7 +72,9 @@ const UserPosts = () => {
   return (
     <UsersPostWrapper>
       <h2>User Posts</h2>
+
       <StyledLink to={`/user/${userId}`}>Back to User</StyledLink>
+
       <ul>
         {posts.map((post) => (
           <PostInformation key={post.id}>
@@ -81,6 +83,7 @@ const UserPosts = () => {
                 ? post.body.charAt(0).toUpperCase() + post.body.slice(1)
                 : ""}
             </h2>
+
             <p>
               {post.body
                 ? post.body.charAt(0).toUpperCase() + post.body.slice(1)
@@ -92,5 +95,3 @@ const UserPosts = () => {
     </UsersPostWrapper>
   );
 };
-
-export default UserPosts;

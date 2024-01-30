@@ -1,10 +1,10 @@
 import React from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
-import UserList from "./components/UserList";
-import UserInfo from "./components/UserInfo";
-import UserPosts from "./components/UserPosts";
-import UserAlbums from "./components/UserAlbums";
+import { UserList } from "./components/UserList";
+import { UserInfo } from "./components/UserInfo";
+import { UserPosts } from "./components/UserPosts";
+import { UserAlbums } from "./components/UserAlbums";
 
 const HomePageWrapper = styled.div`
   display: flex;
